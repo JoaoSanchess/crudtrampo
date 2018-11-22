@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="center">
+                    <h:form id="frmCadastro">
+                        <h:panelGrid id="grid" columns="3" cellpadding="5">
+                            <p:outputLabel for="nome"  value="Nome: "></p:outputLabel>
+                            <p:inputText id="nome" value="#{produtoBean.produto.nome}" />
+                            <p:message for="nome"/>
+                            
+                            <p:outputLabel for="quantidade"  value="Quantidade: "></p:outputLabel>
+                            <p:inputText id="quantidade"  value="#{produtoBean.produto.quantidade}" />
+                            <p:message for="quantidade"/>
+                            
+                            <p:outputLabel for="preco"  value="Preco: "></p:outputLabel>
+                            <p:inputText id="preco"  value="#{produtoBean.produto.preco}" />
+                            <p:message for="preco"/>
+
+                            <p:outputLabel for="datacad"  value="Data de Cadastro: "></p:outputLabel>
+                            <p:calendar id="datacad" pattern="dd/MM/yyyy" mask="true"
+                                        pages="2" value="#{produtoBean.produto.datacad}" />
+                            <p:message for="datacad"/>
+                            
+                            <p:outputLabel for="uf"  value="Origem: "></p:outputLabel>
+                            <p:inputText id="uf" maxlength="2"
+                                       value="#{produtoBean.produto.uf}" />
+                            <p:message for="uf"/>
+                            
+                            <p:outputLabel for="descricao"  value="Descrição: "></p:outputLabel>
+                            <p:inputText id="descricao" value="#{produtoBean.produto.descricao}" />
+                            <p:message for="descricao"/>
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton id="submitForm" value="Salvar" update="grid" 
+                                         action="#{produtoBean.salvar()}"/>
+
+
+                        <p:separator ></p:separator>
+                        <p:dataTable var="p" value="#{produtoBean.produtos}" rows="3"
+                                     paginator="true">
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{p.nome}"/>
+                            </p:column>
+                            <p:column headerText="Quantidade">
+                                <h:outputText value="#{p.quantidade}"/>
+                            </p:column>
+                            <p:column headerText="Preço">
+                                <h:outputText value="#{p.preco}"/>
+                            </p:column>
+                            <p:column headerText="Data de Cadastro">
+                                <h:outputText value="#{p.datacad}" />
+                            </p:column>
+                            <p:column headerText="Uf">
+                                <h:outputText value="#{p.uf}" />
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{p.descricao}" />
+                            </p:column>
+                            
+                            
+                            <p:column headerText="Operações">
+                                <p:commandButton value="Editar" action="#{produtoBean.editar(p)}" update="@form"></p:commandButton>
+                                <p:commandButton value="Deletar" 
+                                                 action="#{produtoBean.deletar(p)}" update="@form"></p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+
